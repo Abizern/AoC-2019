@@ -40,9 +40,6 @@ xcuserdata/
 timeline.xctimeline
 playground.xcworkspace
 
-## AppCode
-.idea
-
 ### Generated files ###
 # .a is not ignored, so that I can use prebuilt libraries in projects.
 *.o
@@ -67,28 +64,6 @@ cabal.sandbox.config
 *.aux
 #.hp
 
-### Ruby ###
-*.gem
-*.rbc
-.bundle
-.config
-coverage
-InstalledFiles
-lib/bundler/man
-pkg
-rdoc
-spec/reports
-test/tmp
-test/version_tmp
-tmp
-
-
-### Python ###
-*.pyc
-MANIFEST
-dist/
-/build/*
-
 ### Backup files ###
 *~.nib
 \#*#
@@ -103,27 +78,6 @@ dist/
 # Package.pins
 .build/
 
-### Carthage ###
-#
-Carthage/Checkouts
-Carthage/Build
+### Haskell binaries for solutions
 
-# CocoaPods
-#
-# We recommend against adding the Pods directory to your .gitignore. However
-# you should judge for yourself, the pros and cons are mentioned at:
-# https://guides.cocoapods.org/using/using-cocoapods.html#should-i-check-the-pods-directory-into-source-control
-#
-#Pods/
-
-# fastlane
-#
-# It is recommended to not store the screenshots in the git repo. Instead, use fastlane to re-generate the
-# screenshots whenever they are needed.
-# For more information about the recommended setup visit:
-# https://docs.fastlane.tools/best-practices/source-control/#source-control
-
-fastlane/report.xml
-fastlane/Preview.html
-fastlane/screenshots
-fastlane/test_output
+Day1
