@@ -12,34 +12,9 @@ public func getInput(_ name: String = "Input") -> [Int] {
         .compactMap(Int.init)
 }
 
-public let input = getInput()
+public let intCode = getInput()
 
-public func output(_ list: [Int]) -> Int {
-    var list = list
-
-    for n in stride(from: 0, to: input.count, by: 4) {
-        let (op, p1, p2, address) = (list[n],
-                                     list[n + 1],
-                                     list[n + 2],
-                                     list[n + 3])
-        guard op != 99 else { break }
-
-        switch op {
-        case 1:
-            list[address] = list[p1] + list[p2]
-        case 2:
-            list[address] = list[p1] * list[p2]
-        default:
-            fatalError("Unexpected item in bagging area")
-        }
-    }
-    return list[0]
-}
-
-public func output(list: [Int], pair: Int) -> Int {
-    let newInput = list.applyingPair(pair)
-    return output(newInput)
-}
+// IntCode
 
 public extension Array where Element == Int {
     func applyingPair(_ pair: Int) -> [Int] {
@@ -51,5 +26,31 @@ public extension Array where Element == Int {
         array[2] = verb
 
         return array
+    }
+
+    var output: Int {
+        var list = self
+
+        for n in stride(from: 0, to: list.count, by: 4) {
+            let (op, p1, p2, address) = (list[n],
+                                         list[n + 1],
+                                         list[n + 2],
+                                         list[n + 3])
+            guard op != 99 else { break }
+
+            switch op {
+            case 1:
+                list[address] = list[p1] + list[p2]
+            case 2:
+                list[address] = list[p1] * list[p2]
+            default:
+                fatalError("Unexpected item in the bagging area")
+            }
+        }
+        return list[0]
+    }
+
+    func output(modifiedBy pair: Int) -> Int {
+        self.applyingPair(pair).output
     }
 }
