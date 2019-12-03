@@ -6,6 +6,8 @@ Attempted Solutions for Advent of Code 2019
 
 Solutions for each day in a Playground, the inputs are embedded. Just run the playground page to see the results.
 
+Dragged in sources from [swift-overture](https://github.com/pointfreeco/swift-overture/tree/master/Sources/Overture)
+
 ## Haskell
 
 Solutions for each day in their own file. The output can be seen by:
