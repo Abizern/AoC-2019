@@ -1,13 +1,9 @@
 import Cocoa
 
-let inputs = getInputs()
+let routes = getRoutes()
 
-let routes = inputs.map { $0.route }
-
-guard
-    let first = routes.first,
-    let second = routes.last
-    else { fatalError("Inconsistent Data") }
+let first = routes.0
+let second = routes.1
 
 let crossings = intersections(first, second).filter { $0 != Point(0,0) }
 

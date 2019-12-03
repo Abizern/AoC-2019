@@ -1,8 +1,10 @@
 import Foundation
 
-public let testInput = getInputs("Test")
+public typealias Route = [Point]
 
-public func getInputs(_ name: String = "Input") -> [[Instruction]] {
+public let testInput = getRoutes("Test")
+
+func getInputs(_ name: String = "Input") -> [[Instruction]] {
     guard
         let url = Bundle.main.url(forResource: name, withExtension: "txt"),
         let text = try? String(contentsOf: url)
@@ -18,6 +20,11 @@ public func getInputs(_ name: String = "Input") -> [[Instruction]] {
     }
 }
 
+public func getRoutes(_ name: String = "Input") -> (Route, Route) {
+    let routes = getInputs().map { $0.route }
+    return (routes[0], routes[1])
+}
+
 enum Direction {
     enum Horizontal: Int {
         case right = 1
@@ -30,17 +37,14 @@ enum Direction {
     }
 }
 
-public enum Instruction: CustomStringConvertible {
+enum Instruction: CustomStringConvertible {
     case U(Int)
     case R(Int)
     case D(Int)
     case L(Int)
 
-    public init?(string: String) {
-        let head = string.prefix(1)
-        let tail = Int(String(string.suffix(string.count - 1)))
-
-        switch (head, tail) {
+    init?(string: String) {
+        switch (string.prefix(1), Int(string.dropFirst())) {
         case ("U", let n?):
             self = .U(n)
         case ("R", let n?):
@@ -54,7 +58,7 @@ public enum Instruction: CustomStringConvertible {
         }
     }
 
-    public var points: [Point] {
+    var route: Route {
         func horizontal(_ n: Int, direction: Direction.Horizontal) -> [Point] {
             stride(from: 0, through: direction.rawValue * n, by: direction.rawValue).map { Point($0, 0) }
         }
@@ -101,19 +105,19 @@ public struct Point: Hashable, CustomStringConvertible {
         "(\(x), \(y))"
     }
 
-    public func offset(_ point: Point) -> Point {
+    func offset(_ point: Point) -> Point {
         Point(self.x + point.x, self.y + point.y)
     }
 
-    public var mDistance: Int {
+    var mDistance: Int {
         return abs(x) + abs(y)
     }
 }
 
-public extension Array where Element == Instruction {
+extension Array where Element == Instruction {
     var route: [Point] {
         self
-            .map { $0.points }
+            .map { $0.route }
             .reduce(into: [Point(0, 0)]) { (accum, points) in
                 let lastPoint = accum.last ?? Point(0,0)
                 accum += points
@@ -127,20 +131,18 @@ public func intersections(_ first: [Point], _ second: [Point]) -> [Point] {
     with(Set(first).intersection(Set(second)), Array.init)
 }
 
-public func manhattanDistance(intersections: [Point]) -> Int {
+public func manhattanDistance(intersections: [Point]) -> Int? {
     return intersections
         .map { $0.mDistance }
         .filter { $0 != 0 }
-        .min()!
+        .min()
 }
 
-public func minimumDistance(intersections: [Point], route1: [Point], route2: [Point]) -> Int {
+public func minimumDistance(intersections: [Point], route1: [Point], route2: [Point]) -> Int? {
     return intersections.map { target in
         let f = route1.prefix(route1.firstIndex(of: target)!)
         let s = route2.prefix(route2.firstIndex(of: target)!)
         return f.count + s.count
     }
-    .min()!
+    .min()
 }
-
-
