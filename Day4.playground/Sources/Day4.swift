@@ -58,11 +58,12 @@ func isStrictlyValid(_ digits: [Int]) -> Bool {
     digits.isIncreasing && digits.hasStrictDouble
 }
 
-
-public let part1 = inputs
+let validPasswords = inputs
     .filter(isValid)
-    .count
 
-public let part2 = inputs
+
+public let part1 = validPasswords.count
+
+public let part2 = validPasswords
     .filter(isStrictlyValid)
     .count
