@@ -1,3 +1,3 @@
 # AoC-2019
 
-A description of this package.
+Swift solutions to to Advent of Code 2019
