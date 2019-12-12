@@ -1,12 +1,14 @@
 public struct IntCode {
     var list: [Int]
+    var phase: Int // For Day7 Amplifier
 
     public lazy var result = list[0]
 
     public var diagnostics = [Int]()
 
-    public init(_ list: [Int]) {
+    public init(_ list: [Int], phase: Int = 0) {
         self.list = list
+        self.phase = phase
     }
 
     func value(at n: Int, mode: Mode) -> Int {
@@ -88,11 +90,16 @@ public struct IntCode {
         }
     }
 
-    public mutating func run(_ input: Int = 0) {
+    public mutating func run() {
+        run(inputs: [0], runToEnd: true)
+    }
+
+    public mutating func run(inputs: [Int] = [0], runToEnd: Bool = true) {
         let end = list.count
+        var inputs = inputs
         var cursor = 0
 
-        while cursor < end {
+        while cursor < end && (runToEnd || diagnostics.isEmpty) {
             let (_, m2, m1, op) = IntCode.decomposeInstruction(list[cursor])
             guard cursor + op.length - 1 < end else { fatalError("overrun") }
             guard op != .halt else { break }
@@ -105,7 +112,8 @@ public struct IntCode {
             case .mult:
                 list[list[cursor + 3]] = value(at: list[cursor + 1], mode: m1) * value(at: list[cursor + 2], mode: m2)
             case .input:
-                list[list[cursor + 1]] = input
+                list[list[cursor + 1]] = inputs[0]
+                inputs = Array(inputs.dropFirst())
             case .output:
                 diagnostics.append(value(at: list[cursor + 1], mode: m1))
             case .jumpIfTrue:
@@ -137,5 +145,15 @@ public struct IntCode {
         list[2] = verb
 
         return IntCode(list)
+    }
+}
+
+public extension IntCode {
+    func withPhase(_ n: Int) -> IntCode {
+        IntCode(list, phase: n)
+    }
+
+    mutating func runAmplifier(input: Int) {
+        run(inputs: [phase, input], runToEnd: false)
     }
 }

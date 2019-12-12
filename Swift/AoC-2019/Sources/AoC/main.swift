@@ -18,3 +18,6 @@ print("\tPart2: \(Day5.runDiagnostic(intCode: day5Input, input: 5)) \tExpected: 
 print("Day6")
 print("\tPart1: \(Day6.part1(day6Input)) \tExpected: 223251")
 print("\tPart2: \(Day6.part2(day6Input)) \tExpected: 430")
+print("Day7")
+print("\tPart1: \(Day7.part1(day7Input)) \tExpected: 225056")
+print("\tPart1: \(Day7.part1(day7Input)) \tExpected: ?")
