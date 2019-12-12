@@ -1,6 +1,6 @@
 import Foundation
 
-let inputs = """
+public let inputs = """
 6TJ)DQ7
 Q64)6PD
 9K5)F2C
@@ -1352,3 +1352,5 @@ DBL)R7V
 TCD)BFQ
 QTX)G92
 """
+    .components(separatedBy: .newlines)
+    .map { $0.components(separatedBy: ")")}
