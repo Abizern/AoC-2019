@@ -8,6 +8,10 @@ Biting the bullet and just using a single package
 
 Look at `main()` to see and amend what is output
 
+From the root of the package run:
+
+    swift run -c release
+
 ## Haskell
 
 Solutions for each day in their own file. The output can be seen by:
