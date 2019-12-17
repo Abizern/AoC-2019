@@ -25,15 +25,26 @@ func viewingAngle(_ lhs: Asteroid, _ rhs: Asteroid) -> String? {
     let dy = lhs.y - rhs.y
     let dx = lhs.x - rhs.x
 
-    guard dy != 0 && dx != 0 else { return nil }
-    guard dy != 0 else { return "0" }
-    guard dx != 0 else { return dy > 0 ? "max" : "-max" }
+    guard dy != 0 || dx != 0 else {
+        return nil }
+    guard dy != 0 else { return dx > 0 ? "left" : "right" }
+    guard dx != 0 else { return dy > 0 ? "below" : "above" }
 
     return String(format: "%.6f", Float(dy) / Float(dx))
 }
 
-func appendingViewingAngle(_ list: [Asteroid]) -> [Asteroid] {
-    var result =
+func countVisible(_ asteroid: Asteroid, _ list: [Asteroid]) -> Asteroid {
+    let visible = list.compactMap { viewingAngle(asteroid, $0) }
+    var newAsteroid = asteroid
+    newAsteroid.visibility = Set(visible).count
+    return newAsteroid
+}
+
+func findTarget(_ list: [Asteroid]) -> Asteroid {
+    let comparison = flip(curry(countVisible))(list)
+    let result = list.map(comparison)
+    let maximum = result.map { $0.visibility }.max()!
+    return result.first { $0.visibility == maximum } ?? Asteroid(x: 0, y: 0)
 }
 
 struct Asteroid {
