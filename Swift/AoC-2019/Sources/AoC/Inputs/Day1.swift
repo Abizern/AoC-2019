@@ -1,4 +1,5 @@
 import Overture
+import AoCLibrary
 
 private let input = """
 146561

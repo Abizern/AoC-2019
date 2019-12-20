@@ -5,6 +5,7 @@ import PackageDescription
 
 let package = Package(
     name: "AoC-2019",
+    platforms: [.macOS(.v10_15)],
     products: [
         .executable(name: "AoC", targets: ["AoC"]),
         .library(name: "AoCLibrary", targets: ["AoCLibrary"]),
