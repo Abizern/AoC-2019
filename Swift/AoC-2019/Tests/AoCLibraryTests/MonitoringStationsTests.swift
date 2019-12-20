@@ -54,4 +54,25 @@ final class MonitoringStationTests: XCTestCase {
         XCTAssertEqual(target, Asteroid(x: 1, y: 2))
         XCTAssertEqual(target.visibility, 35)
     }
+
+    func testExample1_part2() {
+        let input = """
+.#....#####...#..
+##...##.#####..##
+##...#...#.#####.
+..#.....#...###..
+..#.#.....#....##
+"""
+        let list = stationImporter(input)
+        let target = findTarget(list)
+        let relatives = target
+            .bearings
+            .values
+            .flatMap(absoluteBearings)
+            .sorted(by: isCloserByBearing)[0]
+
+        XCTAssertEqual(relatives.dy, -2)
+        XCTAssertEqual(relatives.dx, 0)
+        XCTAssertEqual(relatives.bearing, 0)
+    }
 }

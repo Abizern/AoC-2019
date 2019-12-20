@@ -83,24 +83,57 @@ struct RelativeAsteroid {
         self.bearing = Self.angle(dy: dy, dx: dx)
     }
 
+    init(dx: Int, dy: Int, bearing: Double) {
+        self.dx = dx
+        self.dy = dy
+        self.bearing = bearing
+    }
+
     static func angle(dy: Int, dx: Int) -> Double {
         let result = atan(Double(abs(dy)) / Double(abs(dx)))
 
         switch (dy, dx) {
         case let (y, x) where x == 0:
-            return y > 0 ? 0 : Double.pi
+            return y < 0 ? 0 : Double.pi
         case let (y, x) where y == 0:
             return x > 0 ? Double.pi / 2 : Double.pi * 1.5
-        case let (y, x) where y > 0 && x > 0:
-            return result
         case let (y, x) where y < 0 && x > 0:
+            return result
+        case let (y, x) where y > 0 && x > 0:
             return result + Double.pi / 2
-        case let (y, x) where y < 0 && x < 0:
-            return result + Double.pi
         case let (y, x) where y > 0 && x < 0:
+            return result + Double.pi
+        case let (y, x) where y < 0 && x < 0:
             return result + Double.pi * 1.5
         default:
             fatalError("Unexpected case dy: \(dy) dx \(dx)")
         }
     }
+}
+
+func isCloser(_ lhs: RelativeAsteroid, _ rhs: RelativeAsteroid) -> Bool {
+    func sumSquares(a: Int, b: Int) -> Int {
+        a * a + b * b
+    }
+    
+    return sumSquares(a: lhs.dx, b: lhs.dy) < sumSquares(a: rhs.dx, b: rhs.dy)
+}
+
+func isCloserByBearing(_ lhs: RelativeAsteroid, _ rhs: RelativeAsteroid) -> Bool {
+    lhs.bearing < rhs.bearing
+}
+
+
+func absoluteBearings(_ list: [RelativeAsteroid]) -> [RelativeAsteroid] {
+    //Sort them by distance
+    let sorted = list.sorted(by: isCloser)
+    var result = [RelativeAsteroid]()
+    sorted.enumerated().forEach { (offset, relative) in
+        let dx = relative.dx
+        let dy = relative.dy
+        let bearing = relative.bearing + Double(offset) * Double.pi * 2
+        result.append(RelativeAsteroid(dx: dx, dy: dy, bearing: bearing))
+    }
+
+    return result
 }
