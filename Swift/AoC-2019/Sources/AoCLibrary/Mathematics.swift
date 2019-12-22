@@ -22,3 +22,19 @@ public func permutations<T>(_ xs: [T]) -> [[T]] {
     }
     ?? [[]]
 }
+
+public func gcd(_ a: Int, _ b: Int) -> Int {
+    switch (a, b) {
+    case let (a, b) where a == b:
+        return a
+    case let (a, b) where a > b:
+        return gcd(a-b, b)
+    default:
+        return gcd (a, b-a)
+
+    }
+}
+
+public func lcm(_ a: Int, _ b: Int) -> Int {
+    (a * b) / gcd(a, b)
+}

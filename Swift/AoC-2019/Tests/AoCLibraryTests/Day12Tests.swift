@@ -62,4 +62,20 @@ final class SimulatorTests: XCTestCase {
         XCTAssertEqual(simulator.positions, expectation)
         XCTAssertEqual(simulator.energy, 179)
     }
+
+    func testCycleCounterExample1() {
+        let cycleCounter = CycleCounter(moons)
+        XCTAssertEqual(cycleCounter.repeatCount, 2772)
+    }
+
+    func testCycleCounterExample2() {
+        let moons = [
+            Moon(position: Position(x: -8, y: -10, z: 0)),
+            Moon(position: Position(x: 5, y: 5, z: 10)),
+            Moon(position: Position(x: 2, y: -7, z: 3)),
+            Moon(position: Position(x: 9, y: -8, z: -3))
+        ]
+        let cycleCounter = CycleCounter(moons)
+        XCTAssertEqual(cycleCounter.repeatCount, 4686774924)
+    }
 }

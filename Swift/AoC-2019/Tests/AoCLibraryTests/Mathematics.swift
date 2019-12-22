@@ -12,3 +12,13 @@ final class PermutationsTests: XCTestCase {
         }
     }
 }
+
+final class MultiplesTests: XCTestCase {
+    func test_gcd() {
+        XCTAssertEqual(gcd(3, 9), 3)
+    }
+
+    func test_lcm() {
+        XCTAssertEqual(lcm(3,4), 12)
+    }
+}

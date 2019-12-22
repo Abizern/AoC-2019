@@ -155,7 +155,7 @@ struct ScalarMoon {
     let velocity: Int
 
     func add(_ dv: Int) -> ScalarMoon {
-       ScalarMoon(position: position + dv, velocity: velocity + dv)
+        ScalarMoon(position: position + velocity + dv, velocity: velocity + dv)
     }
 }
 
@@ -163,30 +163,50 @@ extension ScalarMoon: Hashable {}
 
 class ScalarCycleCounter {
     var moons: [ScalarMoon]
-    var cycleCount = 0
     var memo = Set<[ScalarMoon]>()
 
     init(_ moons: [ScalarMoon]) {
         self.moons = moons
-        memo.insert(moons)
     }
 
     func run() -> [ScalarMoon] {
-        let a = moons.map { scalarVelocity($0.velocity, list: moons.map { $0.position }) }
+        let positions = moons.map { $0.position }
+        let a = moons.map { scalarVelocity($0.position, list: positions) }
         let b = zip(moons, a)
         return b.map { (moon, velocity) in
             moon.add(velocity)
         }
     }
 
-    func countCycles() {
-        cycleCount += 1
-        moons = run()
-
+    func countCycles() -> Int {
         while !memo.contains(moons) {
-            cycleCount += 1
+            memo.insert(moons)
             moons = run()
         }
+
+        return memo.count
+    }
+}
+
+class CycleCounter {
+    var moons: [Moon]
+    var scalarCounterX: ScalarCycleCounter
+    var scalarCounterY: ScalarCycleCounter
+    var scalarCounterZ: ScalarCycleCounter
+
+    init(_ moons: [Moon]) {
+        self.moons = moons
+        scalarCounterX = ScalarCycleCounter(moons.map { $0.scalarX })
+        scalarCounterY = ScalarCycleCounter(moons.map { $0.scalarY })
+        scalarCounterZ = ScalarCycleCounter(moons.map { $0.scalarZ })
+    }
+
+    var repeatCount: Int {
+        let countX = scalarCounterX.countCycles()
+        let countY = scalarCounterY.countCycles()
+        let countZ = scalarCounterZ.countCycles()
+
+        return lcm(countX, lcm(countY, countZ))
     }
 }
 

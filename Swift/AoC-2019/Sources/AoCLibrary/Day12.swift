@@ -2,7 +2,7 @@ import Foundation
 import Overture
 
 public enum Day12 {
-    private static func positionImporter(input: String) -> [Position] {
+    static func positionImporter(input: String) -> [Position] {
         with(input, separatedByNewlines).map(pipe(removeDecoration, convertToArray, Position.init))
     }
 
@@ -21,5 +21,11 @@ public enum Day12 {
         let simulator = MoonSimulator(moons: moons)
         simulator.run(for: 1000)
         return simulator.energy
+    }
+
+    public static func part2(_ input: String) -> Int {
+        let moons = positionImporter(input: input).map { Moon.init(position: $0) }
+        let cycleCounter = CycleCounter(moons)
+        return cycleCounter.repeatCount
     }
 }
