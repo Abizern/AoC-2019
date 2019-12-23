@@ -1,11 +1,11 @@
 import Foundation
 import Overture
+import BigInt
 
 public enum Shuffle {
     case reverse
     case cut(Int)
     case increment(Int)
-    case decrement(Int)
 }
 
 // Input support
@@ -56,31 +56,16 @@ func apply(_ datum: Datum, _ shuffle: Shuffle) -> Int {
     let initial = datum.index
     let length = datum.length
 
-    func sourceIndex(target: Int, length: Int, decrement: Int) -> Int {
-        var source: Int? = nil
-        var cursor = 0
-        while source == nil {
-            let index = cursor * length + target
-            if index % decrement == 0 {
-                source = index / decrement
-            } else {
-                cursor += 1
-            }
-        }
-
-        return source!
-    }
-
     switch shuffle {
     case .reverse:
         return length - 1 - initial
     case .cut(let x):
         let n = x > 0 ? x : length + x
         return initial < n ? initial + length - n : initial - n
-    case .increment(let n):
-        return (initial * n) % length
-    case .decrement(let n):
-        return sourceIndex(target: initial, length: length, decrement: n)
+    case .increment(let x):
+        let n = x > 0 ? BigInt(x) : BigInt(length + x)
+        let newIndex = (BigInt(initial) * n) % BigInt(length)
+        return Int(newIndex)
     }
 }
 
@@ -91,9 +76,7 @@ func invert(_ shuffle: Shuffle) -> Shuffle {
     case .cut(let n):
         return .cut(-n)
     case .increment(let n):
-        return .decrement(n)
-    case .decrement(let n):
-        return .increment(n)
+        return .increment(-n)
     }
 }
 

@@ -43,23 +43,31 @@ final class Day22Tests: XCTestCase {
         XCTAssertEqual(result, [0, 3, 6, 9, 2, 5, 8, 1, 4, 7])
     }
 
+    func testIncrementNegative() {
+        let result = [0, 3, 6, 9, 2, 5, 8, 1, 4, 7]
+        .map { Datum(index: $0, length: 10) }
+        .map { apply($0, Shuffle.increment(-3)) }
+
+        XCTAssertEqual(result, Array(0..<10))
+    }
+
     func testDecrementHead() {
         let datum = Datum(index: 0, length: 10)
-        let newIndex = apply(datum, .decrement(3))
+        let newIndex = apply(datum, invert(.increment(3)))
 
         XCTAssertEqual(newIndex, 0)
     }
 
     func testDecrementFirstPass() {
         let datum = Datum(index: 3, length: 10)
-        let newIndex = apply(datum, .decrement(3))
+        let newIndex = apply(datum, invert(.increment(3)))
 
         XCTAssertEqual(newIndex, 1)
     }
 
     func testDecrementSecondPass() {
         let datum = Datum(index: 2, length: 10)
-        let newIndex = apply(datum, .decrement(3))
+        let newIndex = apply(datum, invert(.increment(3)))
 
         XCTAssertEqual(newIndex, 4)
     }
