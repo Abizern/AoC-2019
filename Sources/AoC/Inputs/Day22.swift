@@ -104,4 +104,4 @@ deal into new stack
 cut 1407
 """
 
-let day22Input = convertInput(rawInput)
+//let day22Input = convertInput(rawInput)
