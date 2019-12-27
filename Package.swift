@@ -7,29 +7,21 @@ let package = Package(
     name: "AoC-2019",
     platforms: [.macOS(.v10_15)],
     products: [
-        .executable(name: "AoC", targets: ["AoC"]),
-        .library(name: "AoCLibrary", targets: ["AoCLibrary"]),
-        .library(name: "IntCode", targets: ["IntCode"])
+        .executable(name: "AoC-2019", targets: ["AoC-2019"]),
+        .library(name: "AoCLibrary", targets: ["AoCLibrary"])
     ],
     dependencies: [
         .package(url: "https://github.com/pointfreeco/swift-overture.git", from: "0.5.0")
     ],
     targets: [
-        // Targets are the basic building blocks of a package. A target can define a module or a test suite.
-        // Targets can depend on other targets in this package, and on products in packages which this package depends on.
         .target(
-            name: "AoC",
+            name: "AoC-2019",
             dependencies: ["AoCLibrary", "Overture"]),
         .target(
             name: "AoCLibrary",
-            dependencies: ["IntCode", "Overture"]),
-        .target(name: "IntCode",
-                dependencies: []),
+            dependencies: ["Overture"]),
         .testTarget(
             name: "AoCLibraryTests",
             dependencies: ["AoCLibrary"]),
-        .testTarget(
-            name: "IntCodeTests",
-            dependencies: ["IntCode"])
     ]
 )

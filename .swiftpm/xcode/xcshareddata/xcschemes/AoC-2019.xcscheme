@@ -14,37 +14,9 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "AoCLibrary"
-               BuildableName = "AoCLibrary"
-               BlueprintName = "AoCLibrary"
-               ReferencedContainer = "container:">
-            </BuildableReference>
-         </BuildActionEntry>
-         <BuildActionEntry
-            buildForTesting = "YES"
-            buildForRunning = "YES"
-            buildForProfiling = "YES"
-            buildForArchiving = "YES"
-            buildForAnalyzing = "YES">
-            <BuildableReference
-               BuildableIdentifier = "primary"
-               BlueprintIdentifier = "IntCode"
-               BuildableName = "IntCode"
-               BlueprintName = "IntCode"
-               ReferencedContainer = "container:">
-            </BuildableReference>
-         </BuildActionEntry>
-         <BuildActionEntry
-            buildForTesting = "YES"
-            buildForRunning = "YES"
-            buildForProfiling = "YES"
-            buildForArchiving = "YES"
-            buildForAnalyzing = "YES">
-            <BuildableReference
-               BuildableIdentifier = "primary"
-               BlueprintIdentifier = "AoC"
-               BuildableName = "AoC"
-               BlueprintName = "AoC"
+               BlueprintIdentifier = "AoC-2019"
+               BuildableName = "AoC-2019"
+               BlueprintName = "AoC-2019"
                ReferencedContainer = "container:">
             </BuildableReference>
          </BuildActionEntry>
@@ -59,20 +31,6 @@
                BlueprintIdentifier = "AoCLibraryTests"
                BuildableName = "AoCLibraryTests"
                BlueprintName = "AoCLibraryTests"
-               ReferencedContainer = "container:">
-            </BuildableReference>
-         </BuildActionEntry>
-         <BuildActionEntry
-            buildForTesting = "YES"
-            buildForRunning = "NO"
-            buildForProfiling = "NO"
-            buildForArchiving = "NO"
-            buildForAnalyzing = "NO">
-            <BuildableReference
-               BuildableIdentifier = "primary"
-               BlueprintIdentifier = "IntCodeTests"
-               BuildableName = "IntCodeTests"
-               BlueprintName = "IntCodeTests"
                ReferencedContainer = "container:">
             </BuildableReference>
          </BuildActionEntry>
@@ -94,16 +52,6 @@
                ReferencedContainer = "container:">
             </BuildableReference>
          </TestableReference>
-         <TestableReference
-            skipped = "NO">
-            <BuildableReference
-               BuildableIdentifier = "primary"
-               BlueprintIdentifier = "IntCodeTests"
-               BuildableName = "IntCodeTests"
-               BlueprintName = "IntCodeTests"
-               ReferencedContainer = "container:">
-            </BuildableReference>
-         </TestableReference>
       </Testables>
    </TestAction>
    <LaunchAction
@@ -116,15 +64,16 @@
       debugDocumentVersioning = "YES"
       debugServiceExtension = "internal"
       allowLocationSimulation = "YES">
-      <MacroExpansion>
+      <BuildableProductRunnable
+         runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "AoC"
-            BuildableName = "AoC"
-            BlueprintName = "AoC"
+            BlueprintIdentifier = "AoC-2019"
+            BuildableName = "AoC-2019"
+            BlueprintName = "AoC-2019"
             ReferencedContainer = "container:">
          </BuildableReference>
-      </MacroExpansion>
+      </BuildableProductRunnable>
    </LaunchAction>
    <ProfileAction
       buildConfiguration = "Release"
@@ -132,15 +81,16 @@
       savedToolIdentifier = ""
       useCustomWorkingDirectory = "NO"
       debugDocumentVersioning = "YES">
-      <MacroExpansion>
+      <BuildableProductRunnable
+         runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "AoC"
-            BuildableName = "AoC"
-            BlueprintName = "AoC"
+            BlueprintIdentifier = "AoC-2019"
+            BuildableName = "AoC-2019"
+            BlueprintName = "AoC-2019"
             ReferencedContainer = "container:">
          </BuildableReference>
-      </MacroExpansion>
+      </BuildableProductRunnable>
    </ProfileAction>
    <AnalyzeAction
       buildConfiguration = "Debug">

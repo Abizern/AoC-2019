@@ -104,4 +104,4 @@ private let input = """
 130153
 """
 
-let day1Input = with(input, separatedByNewlines).compactMap(Int.init)
+let day1Input = input
