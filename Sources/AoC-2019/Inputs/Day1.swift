@@ -1,7 +1,7 @@
 import Overture
 import AoCLibrary
 
-private let input = """
+private let rawInput = """
 146561
 98430
 131957
@@ -104,4 +104,4 @@ private let input = """
 130153
 """
 
-let day1Input = input
+let day1Input = rawInput

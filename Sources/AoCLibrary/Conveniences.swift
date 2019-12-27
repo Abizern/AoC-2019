@@ -16,3 +16,8 @@ public func convertToIntArray(_ string: String) -> [Int] {
 public func digits(_ n: Int) -> [Int] {
     String(n).compactMap { $0.wholeNumberValue }
 }
+
+/// Converts a line of comma separated `Int` into `[Int` ignoring any conversion failures
+public func intcodeInput(_ string: String) -> [Int] {
+    with(string, separatedByCommas).compactMap(Int.init)
+}

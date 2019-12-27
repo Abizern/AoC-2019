@@ -8,7 +8,8 @@ let package = Package(
     platforms: [.macOS(.v10_15)],
     products: [
         .executable(name: "AoC-2019", targets: ["AoC-2019"]),
-        .library(name: "AoCLibrary", targets: ["AoCLibrary"])
+        .library(name: "AoCLibrary", targets: ["AoCLibrary"]),
+        .library(name: "Intcode", targets: ["Intcode"])
     ],
     dependencies: [
         .package(url: "https://github.com/pointfreeco/swift-overture.git", from: "0.5.0")
@@ -16,12 +17,18 @@ let package = Package(
     targets: [
         .target(
             name: "AoC-2019",
-            dependencies: ["AoCLibrary", "Overture"]),
+            dependencies: ["AoCLibrary", "Overture", "Intcode"]),
         .target(
             name: "AoCLibrary",
             dependencies: ["Overture"]),
+        .target(
+            name: "Intcode",
+            dependencies: []),
         .testTarget(
             name: "AoCLibraryTests",
             dependencies: ["AoCLibrary"]),
+        .testTarget(
+            name: "IntcodeTests",
+            dependencies: ["Intcode"])
     ]
 )
