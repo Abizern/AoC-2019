@@ -1,9 +1,12 @@
 import Foundation
+import Overture
 
-public class Intcode {
+public final class Intcode {
     private var list: [Int]
     private var cursor = 0
     private var isHalted = false
+    private var outputs = Queue<Int>()
+    private var inputs = Queue<Int>()
 
     public init(_ list: [Int]) {
         self.list = list
@@ -29,23 +32,30 @@ public class Intcode {
 
 private extension Intcode {
     func readOpCode() -> OpCode {
-        OpCode(rawValue: list[cursor])! // Expected to crash
+        OpCode(list[cursor])
     }
 
-    func parametersFor(_ opCode: OpCode) -> ArraySlice<Int> {
-        list[cursor ..< cursor + opCode.length].dropFirst()
+    func parameter(value: Int, mode: OpCode.Mode) -> Int {
+        switch mode {
+        case.position:
+            return list[value]
+        case .immediate:
+            return value
+        }
     }
 
-    func apply(_ opCode: OpCode, _ parameters: ArraySlice<Int>) {
-        let first = parameters.startIndex
-        let last = parameters.endIndex - 1
-        switch opCode {
+    func apply(_ opCode: OpCode) {
+        switch opCode.operation {
         case .add:
-            let target = parameters[last]
-            list[target] = list[parameters[first]] + list[parameters[first + 1]]
+            let target = list[cursor + opCode.length - 1]
+            list[target] =
+                parameter(value: list[cursor + 1], mode: opCode.modes.0) +
+                parameter(value: list[cursor + 2], mode: opCode.modes.1)
         case .multiply:
-            let target = parameters[last]
-            list[target] = list[parameters[first]] * list[parameters[first + 1]]
+            let target = list[cursor + opCode.length - 1]
+            list[target] =
+                parameter(value: list[cursor + 1], mode: opCode.modes.0) *
+                parameter(value: list[cursor + 2], mode: opCode.modes.1)
         case .halt:
             isHalted = true
         }
@@ -53,8 +63,7 @@ private extension Intcode {
 
     func step() {
         let opCode = readOpCode()
-        let parameters = parametersFor(opCode)
-        apply(opCode, parameters)
+        apply(opCode)
         cursor += opCode.length
     }
 }

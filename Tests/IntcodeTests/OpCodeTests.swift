@@ -3,8 +3,8 @@ import XCTest
 
 final class OpCodeTests: XCTestCase {
     func testLength() {
-        XCTAssertEqual(OpCode.add.length, 4)
-        XCTAssertEqual(OpCode.multiply.length, 4)
-        XCTAssertEqual(OpCode.halt.length, 0)
+        XCTAssertEqual(OpCode(operation: .add).length, 4)
+        XCTAssertEqual(OpCode(operation: .multiply).length, 4)
+        XCTAssertEqual(OpCode(operation: .halt).length, 0)
     }
 }
