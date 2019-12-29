@@ -12,7 +12,7 @@ final class Day2IntCodeTests: XCTestCase {
         ]
         let expectations = [3500, 2, 2, 2, 30]
         let firstValues = examples.map { (list: [Int]) -> Int in
-            var computer = Intcode.init(list)
+            let computer = Intcode.init(list)
             computer.runToEnd()
             return computer.firstValue
         }

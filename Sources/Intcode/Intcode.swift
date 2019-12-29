@@ -1,9 +1,30 @@
 import Foundation
 
-public struct Intcode {
+public class Intcode {
     private var list: [Int]
     private var cursor = 0
     private var isHalted = false
+
+    public init(_ list: [Int]) {
+        self.list = list
+    }
+
+    public func runToEnd() {
+        while !isHalted {
+            step()
+        }
+    }
+
+    public var firstValue: Int {
+        list[0]
+    }
+
+    public func applyAlarmState(_ state: Int) {
+        let verb = state % 100
+        let noun = (state - verb) / 100
+        list[1] = noun
+        list[2] = verb
+    }
 }
 
 private extension Intcode {
@@ -15,7 +36,7 @@ private extension Intcode {
         list[cursor ..< cursor + opCode.length].dropFirst()
     }
 
-    mutating func apply(_ opCode: OpCode, _ parameters: ArraySlice<Int>) {
+    func apply(_ opCode: OpCode, _ parameters: ArraySlice<Int>) {
         let first = parameters.startIndex
         let last = parameters.endIndex - 1
         switch opCode {
@@ -30,34 +51,10 @@ private extension Intcode {
         }
     }
 
-    mutating func step() {
+    func step() {
         let opCode = readOpCode()
         let parameters = parametersFor(opCode)
         apply(opCode, parameters)
         cursor += opCode.length
     }
 }
-
-public extension Intcode {
-    init(_ list: [Int]) {
-        self.list = list
-    }
-
-    mutating func runToEnd() {
-        while !isHalted {
-            step()
-        }
-    }
-
-    var firstValue: Int {
-        list[0]
-    }
-
-    mutating func applyAlarmState(_ state: Int) {
-        let verb = state % 100
-        let noun = (state - verb) / 100
-        list[1] = noun
-        list[2] = verb
-    }
-}
-

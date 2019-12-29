@@ -3,16 +3,16 @@ import Overture
 
 public enum Day2 {
     public static func part1(_ input: String) -> Int {
-        var computer = with(input, pipe(intcodeInput, Intcode.init))
+        let computer = with(input, pipe(intcodeInput, Intcode.init))
         computer.applyAlarmState(1202)
         computer.runToEnd()
         return computer.firstValue
     }
 
     public static func part2(_ input: String) -> Int {
-        let intcode = with(input, pipe(intcodeInput, Intcode.init))
+        let list = with(input, intcodeInput)
         return (0...9999).first { n in
-            var computer = intcode
+            let computer = Intcode(list)
             computer.applyAlarmState(n)
             computer.runToEnd()
             return computer.firstValue == 19690720
