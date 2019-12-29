@@ -20,7 +20,7 @@ let package = Package(
             dependencies: ["AoCLibrary", "Overture", "Intcode"]),
         .target(
             name: "AoCLibrary",
-            dependencies: ["Overture"]),
+            dependencies: ["Overture", "Intcode"]),
         .target(
             name: "Intcode",
             dependencies: []),
