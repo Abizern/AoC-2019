@@ -1,7 +1,7 @@
 import XCTest
 @testable import Intcode
 
-final class Day2IntCodeTests: XCTestCase {
+final class Day2IntcodeTests: XCTestCase {
     func testExamplePart1() {
         let examples = [
             [1,9,10,3,2,3,11,0,99,30,40,50],

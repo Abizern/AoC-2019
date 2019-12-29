@@ -1,6 +1,3 @@
-import Overture
-import AoCLibrary
-
 private let rawInput = """
 146561
 98430

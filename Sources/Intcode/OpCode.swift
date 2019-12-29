@@ -21,14 +21,14 @@ struct OpCode {
                                  .position))
         case 4:
             self = .init(operation: Operation(digits.dropFirst(2)),
-                         modes: (Mode(digits[0]),
-                                 Mode(digits[1]),
+                         modes: (Mode(digits[1]),
+                                 Mode(digits[0]),
                                  .position))
         case 5:
             self = .init(operation: Operation(digits.dropFirst(2)),
-                         modes: (Mode(digits[0]),
+                         modes: (Mode(digits[2]),
                                  Mode(digits[1]),
-                                 Mode(digits[2])))
+                                 Mode(digits[0])))
         default:
             fatalError("Too many digits to decompose from \(n)")
         }
@@ -37,6 +37,12 @@ struct OpCode {
     enum Operation: Int {
         case add = 1
         case multiply = 2
+        case input = 3
+        case output = 4
+        case jumpIfTrue = 5
+        case jumpIfFalse = 6
+        case lessThan = 7
+        case equals = 8
         case halt = 99
 
         init(_ n: Int) {
@@ -61,8 +67,12 @@ struct OpCode {
 extension OpCode {
     var length: Int {
         switch operation {
-        case .add, .multiply:
+        case .add, .multiply, .lessThan, .equals:
             return 4
+        case .input, .output:
+            return 2
+        case .jumpIfTrue, .jumpIfFalse:
+            return 3
         case .halt:
             return 0
         }

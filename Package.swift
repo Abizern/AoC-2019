@@ -23,7 +23,7 @@ let package = Package(
             dependencies: ["Overture", "Intcode"]),
         .target(
             name: "Intcode",
-            dependencies: []),
+            dependencies: ["Overture"]),
         .testTarget(
             name: "AoCLibraryTests",
             dependencies: ["AoCLibrary"]),
