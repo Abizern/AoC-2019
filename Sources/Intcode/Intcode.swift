@@ -7,6 +7,9 @@ public final class Intcode {
     private var isHalted = false
     private var outputs = Queue<Int>()
     private var inputs = Queue<Int>()
+    private var hasOutput: Bool {
+        outputs.peek() != nil
+    }
 
     public init(_ list: [Int]) {
         self.list = list
@@ -14,6 +17,12 @@ public final class Intcode {
 
     public func runToEnd() {
         while !isHalted {
+            step()
+        }
+    }
+
+    public func runToOutput() {
+        while !(hasOutput || isHalted) {
             step()
         }
     }
